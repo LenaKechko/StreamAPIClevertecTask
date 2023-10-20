@@ -14,28 +14,28 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        task1();
-        task2();
-        task3();
-        task4();
+//        task1();
+//        task2();
+//        task3();
+//        task4();
         task5();
-        task6();
-        task7();
-        task8();
-        task9();
-        task10();
-        task11();
-        task12();
-        task13();
-        task14();
-        task15();
-        task16();
-        task17();
-        task18();
-        task19();
-        task20();
-        task21();
-        task22();
+//        task6();
+//        task7();
+//        task8();
+//        task9();
+//        task10();
+//        task11();
+//        task12();
+//        task13();
+//        task14();
+//        task15();
+//        task16();
+//        task17();
+//        task18();
+//        task19();
+//        task20();
+//        task21();
+//        task22();
     }
 
     public static void task1() {
@@ -58,9 +58,13 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task5() {
+    public static boolean task5() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        boolean checkAnimalsFromHungarianAndAge = animals.stream()
+                .filter(animal -> animal.getAge() >= 20 && animal.getAge() <= 30)
+                .anyMatch(animal -> animal.getOrigin().equals("Hungarian"));
+        System.out.println(checkAnimalsFromHungarianAndAge);
+        return checkAnimalsFromHungarianAndAge;
     }
 
     public static void task6() {
