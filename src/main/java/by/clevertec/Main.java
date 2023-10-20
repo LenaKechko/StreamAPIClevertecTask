@@ -10,32 +10,33 @@ import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-        task1();
-        task2();
+//        task1();
+//        task2();
         task3();
-        task4();
-        task5();
-        task6();
-        task7();
-        task8();
-        task9();
-        task10();
-        task11();
-        task12();
-        task13();
-        task14();
-        task15();
-        task16();
-        task17();
-        task18();
-        task19();
-        task20();
-        task21();
-        task22();
+//        task4();
+//        task5();
+//        task6();
+//        task7();
+//        task8();
+//        task9();
+//        task10();
+//        task11();
+//        task12();
+//        task13();
+//        task14();
+//        task15();
+//        task16();
+//        task17();
+//        task18();
+//        task19();
+//        task20();
+//        task21();
+//        task22();
     }
 
     public static void task1() {
@@ -48,9 +49,17 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task3() {
+    public static  List<String> task3() {
+        //проверить
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        List<String> originAnimals = animals.stream()
+                .filter(animal -> animal.getAge() > 30)
+                .map(animal -> animal.getOrigin())
+                .distinct()
+                .filter(origin -> origin.startsWith("A"))
+                .collect(Collectors.toList());
+        System.out.println(originAnimals);
+        return originAnimals;
     }
 
     public static void task4() {
