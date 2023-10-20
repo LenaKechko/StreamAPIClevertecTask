@@ -9,33 +9,34 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        task1();
-        task2();
-        task3();
-        task4();
-        task5();
-        task6();
-        task7();
+//        task1();
+//        task2();
+//        task3();
+//        task4();
+//        task5();
+//        task6();
+//        task7();
         task8();
-        task9();
-        task10();
-        task11();
-        task12();
-        task13();
-        task14();
-        task15();
-        task16();
-        task17();
-        task18();
-        task19();
-        task20();
-        task21();
-        task22();
+//        task9();
+//        task10();
+//        task11();
+//        task12();
+//        task13();
+//        task14();
+//        task15();
+//        task16();
+//        task17();
+//        task18();
+//        task19();
+//        task20();
+//        task21();
+//        task22();
     }
 
     public static void task1() {
@@ -73,9 +74,16 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task8() {
+    public static int task8() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        int maxAge = animals.stream()
+                .sorted(Comparator.comparing(Animal::getBread))
+                .limit(100)
+                .max(Comparator.comparing(Animal::getAge))
+                .get().getAge();
+        System.out.println("Возраст самого старого животного после " +
+                "сортировки породы и отбора первых 100: " + maxAge);
+        return maxAge;
     }
 
     public static void task9() {
