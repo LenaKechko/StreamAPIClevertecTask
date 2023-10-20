@@ -83,9 +83,14 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task10() {
+    public static int task10() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        int sumAge = animals.stream()
+                .reduce(0,
+                        (partialAgeResult, animal) -> partialAgeResult + animal.getAge(),
+                        Integer::sum);
+        System.out.println(sumAge);
+        return sumAge;
     }
 
     public static void task11() {
