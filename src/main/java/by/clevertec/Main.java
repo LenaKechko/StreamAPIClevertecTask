@@ -10,32 +10,33 @@ import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-        task1();
+//        task1();
         task2();
-        task3();
-        task4();
-        task5();
-        task6();
-        task7();
-        task8();
-        task9();
-        task10();
-        task11();
-        task12();
-        task13();
-        task14();
-        task15();
-        task16();
-        task17();
-        task18();
-        task19();
-        task20();
-        task21();
-        task22();
+//        task3();
+//        task4();
+//        task5();
+//        task6();
+//        task7();
+//        task8();
+//        task9();
+//        task10();
+//        task11();
+//        task12();
+//        task13();
+//        task14();
+//        task15();
+//        task16();
+//        task17();
+//        task18();
+//        task19();
+//        task20();
+//        task21();
+//        task22();
     }
 
     public static void task1() {
@@ -43,9 +44,17 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task2() {
+    public static List<String> task2() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        //не до конца!
+        List<String> breadsAnimals = animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Japanese")
+                        && animal.getGender().equals("Female"))
+                .map(animal -> animal.getBread().toUpperCase())
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(breadsAnimals);
+        return breadsAnimals;
     }
 
     public static void task3() {
