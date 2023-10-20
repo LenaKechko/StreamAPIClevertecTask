@@ -88,9 +88,14 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task11() {
+    public static double task11() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        double avgAge = animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Indonesian"))
+                .mapToInt(animal -> animal.getAge())
+                .average()
+                .getAsDouble();
+        return avgAge;
     }
 
     public static void task12() {
