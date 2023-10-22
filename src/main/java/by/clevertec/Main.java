@@ -9,7 +9,9 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -113,9 +115,14 @@ public class Main {
 //        flowers.stream() Продолжить ...
     }
 
-    public static void task16() {
+    public static List<Student> task16() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<Student> youngerStudents = students.stream()
+                .filter(student -> student.getAge() < 18)
+                .sorted(Comparator.comparing(Student::getSurname))
+                .collect(Collectors.toList());
+        System.out.println(youngerStudents);
+        return youngerStudents;
     }
 
     public static void task17() {
