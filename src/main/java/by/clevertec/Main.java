@@ -9,7 +9,10 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -108,9 +111,26 @@ public class Main {
 //        cars.stream() Продолжить ...
     }
 
-    public static void task15() {
+    public static double task15() {
         List<Flower> flowers = Util.getFlowers();
-//        flowers.stream() Продолжить ...
+
+        double totalPriceForServiceFlower = flowers.stream()
+                .sorted(Comparator.comparing(Flower::getOrigin)
+                        .thenComparing(Flower::getPrice)
+                        .thenComparing(Flower::getWaterConsumptionPerDay)
+                        .reversed()
+                )
+                .filter(flower -> Pattern.matches("[C-S].+", flower.getCommonName()) &&
+                        flower.isShadePreferred() &&
+                        flower.getFlowerVaseMaterial()
+                                .stream()
+                                .anyMatch(el ->
+                                        Pattern.matches("Aluminum|Glass|Steel", el))
+                )
+                .map(flower -> flower.getPrice() + flower.getWaterConsumptionPerDay() * 1.39 * 5)
+                .reduce(0.0, Double::sum);
+        System.out.println(totalPriceForServiceFlower);
+        return totalPriceForServiceFlower;
     }
 
     public static void task16() {
