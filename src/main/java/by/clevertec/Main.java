@@ -9,7 +9,10 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -139,9 +142,15 @@ public class Main {
 //        students.stream() Продолжить ...
     }
 
-    public static void task21() {
+    public static Map<String, Long> task21() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        Map<String, Long> countStudentsInEachGroup = students.stream()
+                .collect(Collectors.groupingBy(Student::getGroup, Collectors.counting()));
+        for (Map.Entry<String, Long> item : countStudentsInEachGroup.entrySet()) {
+            System.out.println(item.getKey() + " - " + item.getValue());
+        }
+        return countStudentsInEachGroup;
+
     }
 
     public static void task22() {
