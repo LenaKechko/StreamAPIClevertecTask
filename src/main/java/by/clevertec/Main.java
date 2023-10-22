@@ -9,7 +9,10 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -93,9 +96,17 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static void task12() {
+    public static List<Person> task12() {
         List<Person> persons = Util.getPersons();
-//        persons.stream() Продолжить ...
+        List<Person> personsRecruitment = persons.stream()
+                .filter(person -> person.getGender().equals("Male") &&
+                        (LocalDate.now().getYear() - person.getDateOfBirth().getYear() >= 18
+                                && LocalDate.now().getYear() - person.getDateOfBirth().getYear() <= 27))
+                .sorted(Comparator.comparing(Person::getRecruitmentGroup))
+                .limit(200)
+                .collect(Collectors.toList());
+        System.out.println(personsRecruitment);
+        return personsRecruitment;
     }
 
     public static void task13() {
