@@ -10,6 +10,7 @@ import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -118,9 +119,14 @@ public class Main {
 //        students.stream() Продолжить ...
     }
 
-    public static void task17() {
+    public static List<String> task17() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<String> groupList = students.stream()
+                .map(Student::getGroup)
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println(groupList);
+        return groupList;
     }
 
     public static void task18() {
