@@ -9,7 +9,11 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -144,8 +148,14 @@ public class Main {
 //        students.stream() Продолжить ...
     }
 
-    public static void task22() {
+    public static  Map<String, Optional<Student>> task22() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        Map<String, Optional<Student>> minAgeForEachFaculty = students.stream()
+                .collect(Collectors.groupingBy(Student::getFaculty,
+                        Collectors.minBy(Comparator.comparing(Student::getAge))));
+        for(Map.Entry<String, Optional<Student>> item : minAgeForEachFaculty.entrySet()){
+            System.out.println(item.getKey() + " - " + item.getValue().get().getAge());
+        }
+        return minAgeForEachFaculty;
     }
 }
