@@ -138,84 +138,26 @@ public class Main {
 //        students.stream() Продолжить ...
     }
 
-    public static void task20() {
+    public static Map.Entry<String, Double> task20() {
         List<Student> students = Util.getStudents();
         List<Examination> examinations = Util.getExaminations();
-
-//для задания 19!!!
-//        students.stream()
-//                .collect(Collectors.toMap(Function.identity(),
-//                        student -> examinations.stream()
-//                                .filter(examination ->
-//                                        examination.getStudentId() == student.getId())
-//                                .map(Examination::getExam1)
-//                                .findFirst().orElse(0)
-//                ))
-//                .entrySet().stream()
-//                .forEach(System.out::println);
-
-        students.stream()
+        Map.Entry<String, Double> agrMaxMarkForFirstExam = students.stream()
                 .collect(Collectors.toMap(Function.identity(),
                         student -> examinations.stream()
                                 .filter(examination ->
                                         examination.getStudentId() == student.getId())
                                 .map(Examination::getExam1)
-                                .findFirst()
-
+                                .findFirst().orElse(0)
                 ))
                 .entrySet().stream()
+                .filter(el -> el.getValue() != 0)
                 .collect(Collectors.groupingBy(el -> el.getKey().getFaculty(),
-                        Collectors.averagingDouble(el -> el.getValue().isPresent())))
+                        Collectors.averagingDouble(Map.Entry::getValue)))
                 .entrySet().stream()
-                .forEach(System.out::println);
-
-//        students.stream()
-//                .collect(Collectors.groupingBy(
-//                        Student::getFaculty,
-//                        Collectors.toMap(Student::getId,
-//                                student -> examinations.stream()
-//                                        .filter(examination ->
-//                                                examination.getStudentId() == student.getId())
-//                                        .map(Examination::getExam1)
-//                                        .findFirst().orElse(0)
-//                        )))
-//                .entrySet().stream()
-//
-//                .forEach(System.out::println);
-
-//        students.stream()
-//                .collect(Collectors.toMap(Function.identity(),
-//                        student -> examinations.stream()
-//                                .filter(examination ->
-//                                        examination.getStudentId() == student.getId())
-//                                .collect(Collectors.toList())
-//                ))
-//                .entrySet().stream()
-//                .collect(Collectors.groupingBy(
-////                        Student::getFaculty,
-////                        Collectors.mapping(Student::getId, Collectors.toList())
-////                ));
-//                .forEach(System.out::println);
-
-
-//        bookingRepository.findAll()
-//                .stream()
-//                .collect(Collectors.toMap(
-//                        Function.identity(),
-//                        booking -> booking.getProducts().stream()
-//                                .mapToDouble(Product::getPrice).sum()
-//                ));
-
-//                .map(student -> examinations.stream()
-//                        .filter(examination ->
-//                                examination.getStudentId() == student.getId())
-//                        .findFirst().get()
-//                )
-        ;
-//                .filter(Objects::nonNull)
-//                .toList();
-//        studentsPassingThirdExam.forEach(System.out::println);
-//        return studentsPassingThirdExam;
+                .max(Map.Entry.comparingByValue()).orElse(null);
+        System.out.println(agrMaxMarkForFirstExam.getKey() + " - " +
+                agrMaxMarkForFirstExam.getValue());
+        return agrMaxMarkForFirstExam;
     }
 
     public static void task21() {
