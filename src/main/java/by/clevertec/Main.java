@@ -9,7 +9,16 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -100,7 +109,53 @@ public class Main {
 
     public static void task13() {
         List<House> houses = Util.getHouses();
-//        houses.stream() Продолжить ...
+        Set<Person> resultList = new LinkedHashSet<>();
+//        houses.stream().spliterator().forEachRemaining(System.out::println);
+//        Map<Boolean, List<House>> listPriority =
+        houses.stream()
+                .collect(Collectors.partitioningBy(house ->
+                        house.getBuildingType().equals("Hospital")))
+                .entrySet().stream()
+                .peek(el -> {
+                    if (el.getKey()) {
+                        el.getValue().stream()
+                                .map(House::getPersonList)
+                                .flatMap(Collection::stream)
+                                .forEach(resultList::add);
+                    }
+                })
+                .filter(el -> !el.getKey())
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .map(House::getPersonList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.partitioningBy(person ->
+                        (Period.between(person.getDateOfBirth(),
+                                LocalDate.now()).getYears() < 18 ||
+                                Period.between(person.getDateOfBirth(),
+                                        LocalDate.now()).getYears() > 63)))
+                .entrySet().stream()
+                .peek(el -> {
+                    if (el.getKey()) {
+                        resultList.addAll(el.getValue());
+                    }
+                })
+                .filter(el -> !el.getKey())
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .forEach(resultList::add);
+
+        System.out.println("Result!");
+        resultList.forEach(System.out::println);
+//        System.out.println(resultList.stream().limit(500));
+        //992 - 42/999
+//                .forEachRemaining(System.out::println);
+//        ;
+//        .flatMap(Collection::parallelStream)
+//        List<House> firstWave = listPriority.get(true);
+//        listPriority.get(false).stream().
+
+//        System.out.println(firstWave);
     }
 
     public static void task14() {
