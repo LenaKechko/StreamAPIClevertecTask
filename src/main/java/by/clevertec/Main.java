@@ -11,41 +11,46 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
         task1();
-//        task2();
-//        task3();
-//        task4();
-//        task5();
-//        task6();
-//        task7();
-//        task8();
-//        task9();
-//        task10();
-//        task11();
-//        task12();
-//        task13();
-//        task14();
-//        task15();
-//        task16();
-//        task17();
-//        task18();
-//        task19();
-//        task20();
-//        task21();
-//        task22();
+        task2();
+        task3();
+        task4();
+        task5();
+        task6();
+        task7();
+        task8();
+        task9();
+        task10();
+        task11();
+        task12();
+        task13();
+        task14();
+        task15();
+        task16();
+        task17();
+        task18();
+        task19();
+        task20();
+        task21();
+        task22();
     }
 
-    public static void task1() {
+    public static List<Animal> task1() {
         List<Animal> animals = Util.getAnimals();
-        //не закончено
-        animals.stream()
-                .filter(animal -> animal.getAge() >= 10 && animal.getAge() <=20)
+        int countAnimalsInZoo = 7;
+        List<Animal> animalInThirdZoo = animals.stream()
+                .filter(animal -> animal.getAge() >= 10 && animal.getAge() <= 20)
                 .sorted(Comparator.comparing(Animal::getAge))
-                .forEach(System.out::println);
+                .skip(2 * countAnimalsInZoo)
+                .limit(countAnimalsInZoo)
+                .collect(Collectors.toList());
+        System.out.println(animalInThirdZoo);
+        return animalInThirdZoo;
     }
 
     public static void task2() {
