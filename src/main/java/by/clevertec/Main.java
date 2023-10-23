@@ -156,32 +156,6 @@ public class Main {
         studentsPassingThirdExam.forEach(System.out::println);
         return studentsPassingThirdExam;
 
-        //                .flatMap(student -> Collectors.toMap(Student::getSurname,
-//                        ))
-//                .collect(
-//                        Collectors.groupingBy(
-//                                        Student::getId,
-//                                        Collectors.mapping(
-//                                                Examination::getExam1,
-//                                                Collectors.toList()
-//                                        )
-//                );
-
-//                .collect(Collectors.collectingAndThen())
-//
-//                .collect(Collectors.collectingAndThen(
-//                Collectors.groupingBy(i -> i % 10), // Map<Integer, List<Integer>>
-//                (map) -> map.values()
-//                        .stream()                       // Stream<List<Integer>>
-//                        .filter(lst -> lst.size() == 2)
-//                        .map(NumberPair::new)           // Stream<NumberPair>
-//                        .collect(Collectors.toList())
-//        ));
-
-//        students.stream()
-//                .filter(student -> student.getGroup().equals("P-1"))
-//                .collect(Collectors.toMap(Student::getId, ));
-////                .forEach(System.out::println);
     }
 
     public static void task20() {
