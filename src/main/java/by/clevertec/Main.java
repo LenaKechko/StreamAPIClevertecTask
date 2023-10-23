@@ -10,6 +10,10 @@ import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -136,7 +140,82 @@ public class Main {
 
     public static void task20() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<Examination> examinations = Util.getExaminations();
+
+//для задания 19!!!
+//        students.stream()
+//                .collect(Collectors.toMap(Function.identity(),
+//                        student -> examinations.stream()
+//                                .filter(examination ->
+//                                        examination.getStudentId() == student.getId())
+//                                .map(Examination::getExam1)
+//                                .findFirst().orElse(0)
+//                ))
+//                .entrySet().stream()
+//                .forEach(System.out::println);
+
+        students.stream()
+                .collect(Collectors.toMap(Function.identity(),
+                        student -> examinations.stream()
+                                .filter(examination ->
+                                        examination.getStudentId() == student.getId())
+                                .map(Examination::getExam1)
+                                .findFirst()
+
+                ))
+                .entrySet().stream()
+                .collect(Collectors.groupingBy(el -> el.getKey().getFaculty(),
+                        Collectors.averagingDouble(el -> el.getValue().isPresent())))
+                .entrySet().stream()
+                .forEach(System.out::println);
+
+//        students.stream()
+//                .collect(Collectors.groupingBy(
+//                        Student::getFaculty,
+//                        Collectors.toMap(Student::getId,
+//                                student -> examinations.stream()
+//                                        .filter(examination ->
+//                                                examination.getStudentId() == student.getId())
+//                                        .map(Examination::getExam1)
+//                                        .findFirst().orElse(0)
+//                        )))
+//                .entrySet().stream()
+//
+//                .forEach(System.out::println);
+
+//        students.stream()
+//                .collect(Collectors.toMap(Function.identity(),
+//                        student -> examinations.stream()
+//                                .filter(examination ->
+//                                        examination.getStudentId() == student.getId())
+//                                .collect(Collectors.toList())
+//                ))
+//                .entrySet().stream()
+//                .collect(Collectors.groupingBy(
+////                        Student::getFaculty,
+////                        Collectors.mapping(Student::getId, Collectors.toList())
+////                ));
+//                .forEach(System.out::println);
+
+
+//        bookingRepository.findAll()
+//                .stream()
+//                .collect(Collectors.toMap(
+//                        Function.identity(),
+//                        booking -> booking.getProducts().stream()
+//                                .mapToDouble(Product::getPrice).sum()
+//                ));
+
+//                .map(student -> examinations.stream()
+//                        .filter(examination ->
+//                                examination.getStudentId() == student.getId())
+//                        .findFirst().get()
+//                )
+        ;
+//                .filter(Objects::nonNull)
+//                .toList();
+//        studentsPassingThirdExam.forEach(System.out::println);
+//        return studentsPassingThirdExam;
     }
 
     public static void task21() {
