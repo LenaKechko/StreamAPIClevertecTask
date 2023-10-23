@@ -9,7 +9,13 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -125,13 +131,57 @@ public class Main {
 
     public static void task18() {
         List<Student> students = Util.getStudents();
-        List<Examination> examinations = Util.getExaminations();
+
 //        students.stream() Продолжить ...
     }
 
-    public static void task19() {
+    public static List<Student> task19() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<Examination> examinations = Util.getExaminations();
+        List<Student> studentsPassingThirdExam = students.stream()
+                .filter(student -> student.getGroup().equals("C-3"))
+                .map(student -> {
+                            if (examinations.stream()
+                                    .filter(examination ->
+                                            examination.getStudentId() == student.getId())
+                                    .findFirst()
+                                    .filter(examination -> examination.getExam3() > 4)
+                                    .isEmpty())
+                                return null;
+                            return student;
+                        }
+                )
+                .filter(Objects::nonNull)
+                .toList();
+        studentsPassingThirdExam.forEach(System.out::println);
+        return studentsPassingThirdExam;
+
+        //                .flatMap(student -> Collectors.toMap(Student::getSurname,
+//                        ))
+//                .collect(
+//                        Collectors.groupingBy(
+//                                        Student::getId,
+//                                        Collectors.mapping(
+//                                                Examination::getExam1,
+//                                                Collectors.toList()
+//                                        )
+//                );
+
+//                .collect(Collectors.collectingAndThen())
+//
+//                .collect(Collectors.collectingAndThen(
+//                Collectors.groupingBy(i -> i % 10), // Map<Integer, List<Integer>>
+//                (map) -> map.values()
+//                        .stream()                       // Stream<List<Integer>>
+//                        .filter(lst -> lst.size() == 2)
+//                        .map(NumberPair::new)           // Stream<NumberPair>
+//                        .collect(Collectors.toList())
+//        ));
+
+//        students.stream()
+//                .filter(student -> student.getGroup().equals("P-1"))
+//                .collect(Collectors.toMap(Student::getId, ));
+////                .forEach(System.out::println);
     }
 
     public static void task20() {
