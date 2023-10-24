@@ -125,7 +125,8 @@ public class Main {
                 .map(Student::getGroup)
                 .distinct()
                 .collect(Collectors.toList());
-        System.out.println(groupList);
+        System.out.println("Список групп (без повторений):");
+        groupList.forEach(System.out::println);
         return groupList;
     }
 
