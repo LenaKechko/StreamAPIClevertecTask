@@ -14,28 +14,28 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-//        task1();
-//        task2();
-//        task3();
-//        task4();
-//        task5();
-//        task6();
+        task1();
+        task2();
+        task3();
+        task4();
+        task5();
+        task6();
         task7();
-//        task8();
-//        task9();
-//        task10();
-//        task11();
-//        task12();
-//        task13();
-//        task14();
-//        task15();
-//        task16();
-//        task17();
-//        task18();
-//        task19();
-//        task20();
-//        task21();
-//        task22();
+        task8();
+        task9();
+        task10();
+        task11();
+        task12();
+        task13();
+        task14();
+        task15();
+        task16();
+        task17();
+        task18();
+        task19();
+        task20();
+        task21();
+        task22();
     }
 
     public static void task1() {
@@ -71,8 +71,8 @@ public class Main {
     public static boolean task7() {
         List<Animal> animals = Util.getAnimals();
         boolean checkOrigin = animals.stream()
-                .noneMatch(animal -> animal.equals("Oceania"));
-        System.out.println("Нет ли животных из страны Oceania? " + checkOrigin);
+                .noneMatch(animal -> animal.getOrigin().equals("Oceania"));
+        System.out.println(checkOrigin ? "Нет животных из страны Oceania" : "Есть животные из страны Oceania");
         return checkOrigin;
     }
 
