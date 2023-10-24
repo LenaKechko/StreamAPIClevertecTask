@@ -15,28 +15,28 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String[] args) {
-//        task1();
-//        task2();
+        task1();
+        task2();
         task3();
-//        task4();
-//        task5();
-//        task6();
-//        task7();
-//        task8();
-//        task9();
-//        task10();
-//        task11();
-//        task12();
-//        task13();
-//        task14();
-//        task15();
-//        task16();
-//        task17();
-//        task18();
-//        task19();
-//        task20();
-//        task21();
-//        task22();
+        task4();
+        task5();
+        task6();
+        task7();
+        task8();
+        task9();
+        task10();
+        task11();
+        task12();
+        task13();
+        task14();
+        task15();
+        task16();
+        task17();
+        task18();
+        task19();
+        task20();
+        task21();
+        task22();
     }
 
     public static void task1() {
@@ -49,16 +49,16 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static  List<String> task3() {
-        //проверить
+    public static List<String> task3() {
         List<Animal> animals = Util.getAnimals();
         List<String> originAnimals = animals.stream()
                 .filter(animal -> animal.getAge() > 30)
-                .map(animal -> animal.getOrigin())
+                .map(Animal::getOrigin)
                 .distinct()
                 .filter(origin -> origin.startsWith("A"))
                 .collect(Collectors.toList());
-        System.out.println(originAnimals);
+        System.out.println("Страны на букву А, в которых проживают животные старше 30 лет");
+        originAnimals.forEach(System.out::println);
         return originAnimals;
     }
 
