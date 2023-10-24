@@ -14,28 +14,28 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-//        task1();
-//        task2();
-//        task3();
-//        task4();
+        task1();
+        task2();
+        task3();
+        task4();
         task5();
-//        task6();
-//        task7();
-//        task8();
-//        task9();
-//        task10();
-//        task11();
-//        task12();
-//        task13();
-//        task14();
-//        task15();
-//        task16();
-//        task17();
-//        task18();
-//        task19();
-//        task20();
-//        task21();
-//        task22();
+        task6();
+        task7();
+        task8();
+        task9();
+        task10();
+        task11();
+        task12();
+        task13();
+        task14();
+        task15();
+        task16();
+        task17();
+        task18();
+        task19();
+        task20();
+        task21();
+        task22();
     }
 
     public static void task1() {
@@ -58,13 +58,15 @@ public class Main {
 //        animals.stream() Продолжить ...
     }
 
-    public static boolean task5() {
+    public static List<Animal> task5() {
         List<Animal> animals = Util.getAnimals();
-        boolean checkAnimalsFromHungarianAndAge = animals.stream()
+        List<Animal> animalsFromHungarianAndAge = animals.stream()
                 .filter(animal -> animal.getAge() >= 20 && animal.getAge() <= 30)
-                .anyMatch(animal -> animal.getOrigin().equals("Hungarian"));
-        System.out.println(checkAnimalsFromHungarianAndAge);
-        return checkAnimalsFromHungarianAndAge;
+                .filter(animal -> animal.getOrigin().equals("Hungarian"))
+                .toList();
+        System.out.println("Животные из Венгрии в возрасте 20-30 лет:");
+        animalsFromHungarianAndAge.forEach(System.out::println);
+        return animalsFromHungarianAndAge;
     }
 
     public static void task6() {
