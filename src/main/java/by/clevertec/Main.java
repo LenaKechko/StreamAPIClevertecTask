@@ -15,28 +15,28 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-//        task1();
-//        task2();
-//        task3();
-//        task4();
-//        task5();
-//        task6();
-//        task7();
-//        task8();
+        task1();
+        task2();
+        task3();
+        task4();
+        task5();
+        task6();
+        task7();
+        task8();
         task9();
-//        task10();
-//        task11();
-//        task12();
-//        task13();
-//        task14();
-//        task15();
-//        task16();
-//        task17();
-//        task18();
-//        task19();
-//        task20();
-//        task21();
-//        task22();
+        task10();
+        task11();
+        task12();
+        task13();
+        task14();
+        task15();
+        task16();
+        task17();
+        task18();
+        task19();
+        task20();
+        task21();
+        task22();
     }
 
     public static void task1() {
@@ -82,9 +82,12 @@ public class Main {
     public static int task9() {
         List<Animal> animals = Util.getAnimals();
         int minLengthBread = animals.stream()
-                .map(animal -> animal.getBread().toCharArray().length)
-                .min(Integer::compareTo).get();
-        System.out.println(minLengthBread);
+                .map(Animal::getBread)
+                .map(String::toCharArray)
+                .map(bread -> bread.length)
+                .min(Integer::compareTo)
+                .orElseThrow();
+        System.out.println("Длина самой короткой породы: " + minLengthBread);
         return minLengthBread;
     }
 
