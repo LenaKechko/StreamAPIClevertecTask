@@ -49,7 +49,8 @@ public class Main {
                 .skip(2 * countAnimalsInZoo)
                 .limit(countAnimalsInZoo)
                 .collect(Collectors.toList());
-        System.out.println(animalInThirdZoo);
+        System.out.println("Молодые особи с 3-ом зоопарке:");
+        animalInThirdZoo.forEach(System.out::println);
         return animalInThirdZoo;
     }
 
