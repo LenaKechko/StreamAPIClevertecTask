@@ -92,9 +92,10 @@ public class Main {
         List<Animal> animals = Util.getAnimals();
         double avgAge = animals.stream()
                 .filter(animal -> animal.getOrigin().equals("Indonesian"))
-                .mapToInt(animal -> animal.getAge())
+                .mapToInt(Animal::getAge)
                 .average()
-                .getAsDouble();
+                .orElseThrow();
+        System.out.println("Средний возраст животных из Indonesian: "+ avgAge);
         return avgAge;
     }
 
