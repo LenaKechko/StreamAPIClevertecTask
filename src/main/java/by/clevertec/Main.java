@@ -89,7 +89,7 @@ public class Main {
                 .reduce(0,
                         (partialAgeResult, animal) -> partialAgeResult + animal.getAge(),
                         Integer::sum);
-        System.out.println(sumAge);
+        System.out.println("Суммарный возраст всех животных: " + sumAge);
         return sumAge;
     }
 
