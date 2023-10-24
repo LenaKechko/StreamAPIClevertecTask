@@ -47,15 +47,10 @@ public class Main {
     public static List<String> task2() {
         List<Animal> animals = Util.getAnimals();
         List<String> breadsAnimals = animals.stream()
-                .filter(animal -> animal.getOrigin().equals("Japanese"))
-                .map(animal -> {
-                    if (animal.getGender().equals("Female"))
-                        return animal.getBread().toUpperCase();
-                    return animal.getBread();
-                })
-                .distinct()
+                .filter(animal -> animal.getOrigin().equals("Japanese")
+                        && animal.getGender().equals("Female"))
+                .map(animal -> animal.getBread().toUpperCase())
                 .collect(Collectors.toList());
-
         System.out.println("Породы животных из Японии (самки прописными буквами):");
         breadsAnimals.forEach(System.out::println);
         return breadsAnimals;
