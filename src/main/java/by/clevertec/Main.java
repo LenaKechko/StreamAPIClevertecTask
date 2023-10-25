@@ -138,10 +138,10 @@ public class Main {
 //        students.stream() Продолжить ...
     }
 
-    public static Map.Entry<String, Double> task20() {
+    public static Map<String, Double> task20() {
         List<Student> students = Util.getStudents();
         List<Examination> examinations = Util.getExaminations();
-        Map.Entry<String, Double> agrMaxMarkForFirstExam = students.stream()
+        Map<String, Double> agrMaxMarkForFirstExam = students.stream()
                 .collect(Collectors.toMap(Function.identity(),
                         student -> examinations.stream()
                                 .filter(examination ->
@@ -154,9 +154,11 @@ public class Main {
                 .collect(Collectors.groupingBy(el -> el.getKey().getFaculty(),
                         Collectors.averagingDouble(Map.Entry::getValue)))
                 .entrySet().stream()
-                .max(Map.Entry.comparingByValue()).orElse(null);
-        System.out.println(agrMaxMarkForFirstExam.getKey() + " - " +
-                agrMaxMarkForFirstExam.getValue());
+                .max(Map.Entry.comparingByValue())
+                .stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        System.out.println("Факультет с максимальной средней оценкой по первому экзамену:");
+        for (Map.Entry<String, Double> el : agrMaxMarkForFirstExam.entrySet())
+            System.out.println(el.getKey() + " - " + el.getValue());
         return agrMaxMarkForFirstExam;
     }
 
