@@ -11,14 +11,16 @@ import by.clevertec.util.Util;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
+
+import static by.clevertec.util.Util.getPersons;
 
 public class Main {
 
@@ -103,15 +105,13 @@ public class Main {
     }
 
     public static void task12() {
-        List<Person> persons = Util.getPersons();
+        List<Person> persons = getPersons();
 //        persons.stream() Продолжить ...
     }
 
-    public static void task13() {
+    public static List<Person> task13() {
         List<House> houses = Util.getHouses();
-        Set<Person> resultList = new LinkedHashSet<>();
-//        houses.stream().spliterator().forEachRemaining(System.out::println);
-//        Map<Boolean, List<House>> listPriority =
+        List<Person> resultList = new ArrayList<>();
         houses.stream()
                 .collect(Collectors.partitioningBy(house ->
                         house.getBuildingType().equals("Hospital")))
@@ -140,22 +140,19 @@ public class Main {
                         resultList.addAll(el.getValue());
                     }
                 })
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+                .entrySet().stream()
                 .filter(el -> !el.getKey())
                 .map(Map.Entry::getValue)
                 .flatMap(Collection::stream)
                 .forEach(resultList::add);
 
-        System.out.println("Result!");
-        resultList.forEach(System.out::println);
-//        System.out.println(resultList.stream().limit(500));
-        //992 - 42/999
-//                .forEachRemaining(System.out::println);
-//        ;
-//        .flatMap(Collection::parallelStream)
-//        List<House> firstWave = listPriority.get(true);
-//        listPriority.get(false).stream().
-
-//        System.out.println(firstWave);
+        List<Person> finallyResultList = resultList.stream()
+                .limit(500)
+                .toList();
+        System.out.println("Люди попавшие в первые ряды эвакуировнных:");
+        finallyResultList.forEach(System.out::println);
+        return finallyResultList;
     }
 
     public static void task14() {
