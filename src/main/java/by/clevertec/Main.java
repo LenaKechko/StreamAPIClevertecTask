@@ -11,7 +11,6 @@ import by.clevertec.util.Util;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
@@ -113,23 +112,25 @@ public class Main {
 
     public static double task15() {
         List<Flower> flowers = Util.getFlowers();
-
+        long countDaysOfFiveYears = 5 * 365 + 1;
         double totalPriceForServiceFlower = flowers.stream()
                 .sorted(Comparator.comparing(Flower::getOrigin)
                         .thenComparing(Flower::getPrice)
                         .thenComparing(Flower::getWaterConsumptionPerDay)
                         .reversed()
                 )
-                .filter(flower -> Pattern.matches("[C-S].+", flower.getCommonName()) &&
-                        flower.isShadePreferred() &&
+                .filter(flower -> Pattern.matches("[C-S].+", flower.getCommonName()))
+                .filter(flower -> flower.isShadePreferred() &&
                         flower.getFlowerVaseMaterial()
                                 .stream()
                                 .anyMatch(el ->
                                         Pattern.matches("Aluminum|Glass|Steel", el))
                 )
-                .map(flower -> flower.getPrice() + flower.getWaterConsumptionPerDay() * 1.39 * 5)
+                //далее учитывается, что расход воды дан в литрах
+                .map(flower -> flower.getPrice() +
+                        flower.getWaterConsumptionPerDay() * 1.39 / 1000 * countDaysOfFiveYears)
                 .reduce(0.0, Double::sum);
-        System.out.println(totalPriceForServiceFlower);
+        System.out.printf("Общая стоимость обслуживания растений (за 5 лет) = %.2f $", totalPriceForServiceFlower);
         return totalPriceForServiceFlower;
     }
 
