@@ -7,8 +7,10 @@ import by.clevertec.model.Flower;
 import by.clevertec.model.House;
 import by.clevertec.model.Person;
 import by.clevertec.model.Student;
+import by.clevertec.util.MyPredicate;
 import by.clevertec.util.Util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -112,69 +114,37 @@ public class Main {
 
     public static double task14() {
         List<Car> cars = Util.getCars();
-        Map<Boolean, List<Car>> tempTurk = cars.stream()
-                .collect(Collectors.partitioningBy(
-                        car -> car.getCarMake().equals("Jaguar")
-                                || car.getColor().equals("White")));
-        Map<String, List<Car>> carsEchelons = new HashMap<>();
-        carsEchelons.put("Туркменистан", tempTurk.get(true));
-
-        Map<Boolean, List<Car>> tempUsb = tempTurk.get(false).stream()
-                .collect(Collectors.partitioningBy(
-                        car -> car.getMass() < 1500 || //&& ???
-                                (car.getCarMake().equals("BMW")
-                                        || car.getCarMake().equals("Lexus")
-                                        || car.getCarMake().equals("Chrysler")
-                                        || car.getCarMake().equals("Toyota "))));
-        carsEchelons.put("Узбекистан", tempUsb.get(true));
-
-        Map<Boolean, List<Car>> tempKaz = tempUsb.get(false).stream()
-                .collect(Collectors.partitioningBy(
-                        car -> car.getColor().equals("Black") && car.getMass() > 4000 ||
-                                (car.getCarMake().equals("GMC")
-                                        || car.getCarMake().equals("Dodge"))));
-        carsEchelons.put("Казахстан", tempKaz.get(true));
-
-        Map<Boolean, List<Car>> tempKir = tempKaz.get(false).stream()
-                .collect(Collectors.partitioningBy(
-                        car -> car.getReleaseYear() < 1982 ||
-                                (car.getCarMake().equals("Civic")
-                                        || car.getCarMake().equals("Cherokee"))));
-        carsEchelons.put("Кыргызстан", tempKir.get(true));
-
-        Map<Boolean, List<Car>> tempRus = tempKir.get(false).stream()
-                .collect(Collectors.partitioningBy(
-                        car -> !(car.getColor().equals("Yellow") ||
-                                car.getColor().equals("Red") ||
-                                car.getColor().equals("Green") ||
-                                car.getColor().equals("Blue")) ||
-                                car.getPrice() > 40000));
-        carsEchelons.put("Россия", tempRus.get(true));
-
-        Map<Boolean, List<Car>> tempMong = tempRus.get(false).stream()
-                .collect(Collectors.partitioningBy(
-                        car -> car.getVin().contains("59")));
-        carsEchelons.put("Монголия", tempMong.get(true));
-        Map<String, Double> transactionCostIncludingDirection = new HashMap<>(Collections.emptyMap());
-        carsEchelons.entrySet()
-                .stream()
-                .toList()
-                .stream()
-                .map(el ->
+        Map<String, List<Car>> result =
+                Map.of("Туркменистан", new ArrayList<>(),
+                        "Узбекистан", new ArrayList<>(),
+                        "Казахстан", new ArrayList<>(),
+                        "Кыргызстан", new ArrayList<>(),
+                        "Россия", new ArrayList<>(),
+                        "Монголия", new ArrayList<>());
+        Map<String, List<Car>> echelonesList = new HashMap<>();
+        System.out.println(cars.stream()
+                .map(car ->
                         {
-                            double transactionCost = getSumMass(el.getValue()) / 1000.0 * 7.14;
-                            return Map.entry(el.getKey(), transactionCost);
+                            echelonesList.put("Туркменистан", MyPredicate.filterCars(cars, MyPredicate.isFirstEchelon()));
+                            echelonesList.put("Узбекистан", MyPredicate.filterCars(cars, MyPredicate.isSecondEchelon()));
+                            echelonesList.put("Казахстан", MyPredicate.filterCars(cars, MyPredicate.isThirdEchelon()));
+                            echelonesList.put("Кыргызстан", MyPredicate.filterCars(cars, MyPredicate.isFourthEchelon()));
+                            echelonesList.put("Россия", MyPredicate.filterCars(cars, MyPredicate.isFifthEchelon()));
+                            echelonesList.put("Монголия", MyPredicate.filterCars(cars, MyPredicate.isSixthEchelon()));
+                            return echelonesList;
                         }
                 )
-                .forEach(el -> transactionCostIncludingDirection.put(el.getKey(), el.getValue()));
-        for (Map.Entry<String, Double> item : transactionCostIncludingDirection.entrySet()) {
-            System.out.printf("%s - %f\n", item.getKey(), item.getValue());
-        }
-        double totalSum = transactionCostIncludingDirection.entrySet().stream()
-                .map(Map.Entry::getValue)
-                .reduce(0.0, Double::sum);
-        System.out.println(totalSum);
-        return totalSum;
+                .count());
+//                .map(el ->
+//                        {
+//                            double transactionCost = Main.getSumMass(el.getValue()) / 1000.0 * 7.14;
+//                            return Map.entry(el.getKey(), transactionCost);
+//                        }
+//                )
+//                .forEach(el -> transactionCostIncludingDirection.put(el.getKey(), el.getValue()));
+//MyPredicate.isSecondEchelon().and(MyPredicate.isFirstEchelon().negate())
+//        return totalSum;
+        return 0.0;
     }
 
     public static long getSumMass(List<Car> carsList) {
