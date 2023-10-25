@@ -10,6 +10,7 @@ import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,12 +101,13 @@ public class Main {
         List<Person> persons = Util.getPersons();
         List<Person> personsRecruitment = persons.stream()
                 .filter(person -> person.getGender().equals("Male") &&
-                        (LocalDate.now().getYear() - person.getDateOfBirth().getYear() >= 18
-                                && LocalDate.now().getYear() - person.getDateOfBirth().getYear() <= 27))
+                        (Period.between(person.getDateOfBirth(), LocalDate.now()).getYears() >= 18
+                                && Period.between(person.getDateOfBirth(), LocalDate.now()).getYears() <= 27))
                 .sorted(Comparator.comparing(Person::getRecruitmentGroup))
                 .limit(200)
                 .collect(Collectors.toList());
-        System.out.println(personsRecruitment);
+        System.out.println("Рекруты во французский легион:");
+        personsRecruitment.forEach(System.out::println);
         return personsRecruitment;
     }
 
