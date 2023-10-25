@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparingInt;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -142,6 +144,7 @@ public class Main {
                                 Map.Entry::getValue,
                                 (e1, e2) -> e1,
                                 LinkedHashMap::new));
+        System.out.println("Средний возраст студентов на каждом факультете:");
         facultyListWithAvgAgeStudents
                 .forEach((key, value) -> System.out.println(key + " - " + value));
         return facultyListWithAvgAgeStudents;
