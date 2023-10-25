@@ -153,6 +153,7 @@ public class Main {
                 )
                 .filter(Objects::nonNull)
                 .toList();
+        System.out.println("Вывод студентов группы C-3, у которых 3 экзамен >4");
         studentsPassingThirdExam.forEach(System.out::println);
         return studentsPassingThirdExam;
 
