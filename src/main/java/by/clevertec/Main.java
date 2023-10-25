@@ -121,7 +121,8 @@ public class Main {
                 .filter(student -> student.getAge() < 18)
                 .sorted(Comparator.comparing(Student::getSurname))
                 .collect(Collectors.toList());
-        System.out.println(youngerStudents);
+        System.out.println("Список студентов младше 18 лет:");
+        youngerStudents.forEach(System.out::println);
         return youngerStudents;
     }
 
