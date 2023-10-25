@@ -9,11 +9,14 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.util.Comparator.*;
 
 public class Main {
 
@@ -148,13 +151,19 @@ public class Main {
 //        students.stream() Продолжить ...
     }
 
-    public static  Map<String, Optional<Student>> task22() {
+    public static Map<String, Integer> task22() {
         List<Student> students = Util.getStudents();
-        Map<String, Optional<Student>> minAgeForEachFaculty = students.stream()
-                .collect(Collectors.groupingBy(Student::getFaculty,
-                        Collectors.minBy(Comparator.comparing(Student::getAge))));
-        for(Map.Entry<String, Optional<Student>> item : minAgeForEachFaculty.entrySet()){
-            System.out.println(item.getKey() + " - " + item.getValue().get().getAge());
+        Map<String, Integer> minAgeForEachFaculty =
+                students.stream()
+                        .collect(Collectors.groupingBy(Student::getFaculty,
+                                Collectors.minBy(comparingInt(Student::getAge))))
+                        .entrySet().stream()
+                        .map(el -> Map.entry(el.getKey(),
+                                el.getValue().orElseThrow().getAge()))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        System.out.println("Факультет       |  Минимальный возраст");
+        for (Map.Entry<String, Integer> item : minAgeForEachFaculty.entrySet()) {
+            System.out.printf("%-16s|   %-10d\n", item.getKey(), item.getValue());
         }
         return minAgeForEachFaculty;
     }
