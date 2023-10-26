@@ -19,10 +19,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
-
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -296,10 +292,23 @@ public class Main {
         return groupList;
     }
 
-    public static void task18() {
+    public static Map<String, Double> task18() {
         List<Student> students = Util.getStudents();
-        List<Examination> examinations = Util.getExaminations();
-//        students.stream() Продолжить ...
+        Map<String, Double> facultyListWithAvgAgeStudents = new HashMap<>();
+        facultyListWithAvgAgeStudents = students.stream()
+                .collect(Collectors.groupingBy(Student::getFaculty,
+                        Collectors.averagingDouble(Student::getAge)))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                .collect(Collectors
+                        .toMap(Map.Entry::getKey,
+                                Map.Entry::getValue,
+                                (e1, e2) -> e1,
+                                LinkedHashMap::new));
+        System.out.println("Средний возраст студентов на каждом факультете:");
+        facultyListWithAvgAgeStudents
+                .forEach((key, value) -> System.out.println(key + " - " + value));
+        return facultyListWithAvgAgeStudents;
     }
 
     public static void task19() {
