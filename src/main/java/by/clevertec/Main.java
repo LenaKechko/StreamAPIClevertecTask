@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -245,9 +247,28 @@ public class Main {
         return total;
     }
 
-    public static void task15() {
+    public static double task15() {
         List<Flower> flowers = Util.getFlowers();
-//        flowers.stream() Продолжить ...
+        long countDaysOfFiveYears = 5 * 365 + 1;
+        double totalPriceForServiceFlower = flowers.stream()
+                .sorted(Comparator.comparing(Flower::getOrigin)
+                        .thenComparing(Flower::getPrice)
+                        .thenComparing(Flower::getWaterConsumptionPerDay)
+                        .reversed()
+                )
+                .filter(flower -> Pattern.matches("[C-S].+", flower.getCommonName()))
+                .filter(flower -> flower.isShadePreferred() &&
+                        flower.getFlowerVaseMaterial()
+                                .stream()
+                                .anyMatch(el ->
+                                        Pattern.matches("Aluminum|Glass|Steel", el))
+                )
+                //далее учитывается, что расход воды дан в литрах
+                .map(flower -> flower.getPrice() +
+                        flower.getWaterConsumptionPerDay() * 1.39 / 1000 * countDaysOfFiveYears)
+                .reduce(0.0, Double::sum);
+        System.out.printf("Общая стоимость обслуживания растений (за 5 лет) = %.2f $", totalPriceForServiceFlower);
+        return totalPriceForServiceFlower;
     }
 
     public static void task16() {
