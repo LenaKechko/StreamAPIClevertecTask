@@ -98,9 +98,13 @@ public class Main {
         return animalsFromHungarianAndAge;
     }
 
-    public static void task6() {
+    public static boolean task6() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        boolean checkOtherGenderAnimal = animals.stream()
+                .allMatch(animal -> animal.getGender().equals("Male")
+                        || animal.getGender().equals("Female"));
+        System.out.println(checkOtherGenderAnimal ? "Все животные Female или Male" : "Не все животные Female или Male");
+        return checkOtherGenderAnimal;
     }
 
     public static void task7() {

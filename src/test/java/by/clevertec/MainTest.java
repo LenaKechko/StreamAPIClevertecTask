@@ -76,6 +76,13 @@ class MainTest {
     }
     @Test
     void task6() {
+        List<Animal> animals = Util.getAnimals();
+        boolean expectedResult = animals.stream()
+                .map(Animal::getGender)
+                .distinct()
+                .allMatch(gender -> gender.equals("Male")
+                        || gender.equals("Female"));
+        assertEquals(expectedResult, Main.task6());
 
     }
 
