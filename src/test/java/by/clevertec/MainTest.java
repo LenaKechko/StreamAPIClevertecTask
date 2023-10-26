@@ -13,25 +13,11 @@ import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
-import by.clevertec.model.Car;
-import by.clevertec.util.UtilForTask14;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import by.clevertec.model.Flower;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MainTest {
 
     @Test
-<<<<<<
-
-    <HEAD
     void task1() {
         List<Animal> animals = Util.getAnimals();
         int countAnimalsInZoo = 7;
@@ -305,6 +291,14 @@ class MainTest {
 
     @Test
     void task17() {
+        List<Student> students = Util.getStudents();
+        List<String> expectedList = new ArrayList<>();
+        for (Student student : students) {
+            if (expectedList.contains(student.getGroup()))
+                continue;
+            expectedList.add(student.getGroup());
+        }
+        assertEquals(expectedList, Main.task17());
     }
 
     @Test
@@ -326,5 +320,6 @@ class MainTest {
     @Test
     void task22() {
     }
+
 
 }

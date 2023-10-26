@@ -285,9 +285,15 @@ public class Main {
         return youngerStudents;
     }
 
-    public static void task17() {
+    public static List<String> task17() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<String> groupList = students.stream()
+                .map(Student::getGroup)
+                .distinct()
+                .collect(Collectors.toList());
+        System.out.println("Список групп (без повторений):");
+        groupList.forEach(System.out::println);
+        return groupList;
     }
 
     public static void task18() {
