@@ -15,17 +15,13 @@ import java.util.LinkedHashMap;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Comparator;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -172,7 +168,7 @@ public class Main {
                 .mapToInt(Animal::getAge)
                 .average()
                 .orElseThrow();
-        System.out.println("Средний возраст животных из Indonesian: "+ avgAge);
+        System.out.println("Средний возраст животных из Indonesian: " + avgAge);
         return avgAge;
     }
 
