@@ -327,7 +327,7 @@ class MainTest {
         Map<String, List<Integer>> temp = new HashMap<>();
         for (Student student : students) {
             String faculty = student.getFaculty();
-<<<<<<< HEAD
+<<<<<<<HEAD
             List<Integer> tempData = List.of(0, 0);
             if (temp.containsKey(faculty)) {
                 tempData = temp.get(faculty);
@@ -368,32 +368,6 @@ class MainTest {
             }
         }
         assertEquals(expectedResult, Main.task19());
-=======
-            List<Integer> aboutMarks = List.of(0, 0);
-            if (temp.containsKey(faculty)) {
-                aboutMarks = temp.get(faculty);
-            }
-            for (Examination examination : examinations) {
-                if (examination.getStudentId() == student.getId()) {
-                    aboutMarks = List.of(aboutMarks.get(0) + examination.getExam1(),
-                            aboutMarks.get(1) + 1);
-                }
-            }
-            temp.put(faculty, aboutMarks);
-        }
-        Map<String, Double> finalExpectedResult = new HashMap<>();
-
-        temp.forEach((faculty, value) -> {
-            double averageMark = (double) value.get(0) / value.get(1);
-            expectedResult.put(faculty, averageMark);
-        });
-        finalExpectedResult = expectedResult.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        assertEquals(finalExpectedResult, Main.task20());
->>>>>>> feature/task20
     }
 
     @Test
