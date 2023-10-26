@@ -129,8 +129,6 @@ class MainTest {
         assertEquals(expectedResult, Main.task10());
     }
 
-    }
-
     @Test
     void task11() {
 
