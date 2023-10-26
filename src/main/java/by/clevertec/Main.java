@@ -12,7 +12,15 @@ import by.clevertec.util.Util;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Comparator;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static by.clevertec.util.Util.getPersons;
 
 public class Main {
 
@@ -176,9 +184,50 @@ public class Main {
         return personsRecruitment;
     }
 
-    public static void task13() {
+    public static List<Person> task13() {
         List<House> houses = Util.getHouses();
-//        houses.stream() Продолжить ...
+        List<Person> resultList = new ArrayList<>();
+        houses.stream()
+                .collect(Collectors.partitioningBy(house ->
+                        house.getBuildingType().equals("Hospital")))
+                .entrySet().stream()
+                .peek(el -> {
+                    if (el.getKey()) {
+                        el.getValue().stream()
+                                .map(House::getPersonList)
+                                .flatMap(Collection::stream)
+                                .forEach(resultList::add);
+                    }
+                })
+                .filter(el -> !el.getKey())
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .map(House::getPersonList)
+                .flatMap(Collection::stream)
+                .collect(Collectors.partitioningBy(person ->
+                        (Period.between(person.getDateOfBirth(),
+                                LocalDate.now()).getYears() < 18 ||
+                                Period.between(person.getDateOfBirth(),
+                                        LocalDate.now()).getYears() > 63)))
+                .entrySet().stream()
+                .peek(el -> {
+                    if (el.getKey()) {
+                        resultList.addAll(el.getValue());
+                    }
+                })
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue))
+                .entrySet().stream()
+                .filter(el -> !el.getKey())
+                .map(Map.Entry::getValue)
+                .flatMap(Collection::stream)
+                .forEach(resultList::add);
+
+        List<Person> finallyResultList = resultList.stream()
+                .limit(500)
+                .toList();
+        System.out.println("Люди попавшие в первые ряды эвакуировнных:");
+        finallyResultList.forEach(System.out::println);
+        return finallyResultList;
     }
 
     public static void task14() {
