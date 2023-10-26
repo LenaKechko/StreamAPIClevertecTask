@@ -5,14 +5,22 @@ import by.clevertec.util.Util;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+=======
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+>>>>>>> feature/task2
 
 class MainTest {
 
     @Test
+<<<<<<< HEAD
     void task1() {
         List<Animal> animals = Util.getAnimals();
         int countAnimalsInZoo = 7;
@@ -25,5 +33,15 @@ class MainTest {
         expectedList.sort(Comparator.comparing(Animal::getAge));
         expectedList = expectedList.subList(2 * countAnimalsInZoo, 3 * countAnimalsInZoo);
         assertEquals(expectedList, Main.task1());
+=======
+    void task2() {
+        List<Animal> animals = Util.getAnimals();
+        List<String> expectedList = new ArrayList<>();
+        for (Animal animal : animals) {
+            if (animal.getOrigin().equals("Japanese") && animal.getGender().equals("Female"))
+                expectedList.add(animal.getBread().toUpperCase());
+        }
+        assertEquals(expectedList, Main.task2());
+>>>>>>> feature/task2
     }
 }

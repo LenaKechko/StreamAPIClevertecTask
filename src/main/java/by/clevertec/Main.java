@@ -54,9 +54,16 @@ public class Main {
         return animalInThirdZoo;
     }
 
-    public static void task2() {
+    public static List<String> task2() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        List<String> breadsAnimals = animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Japanese")
+                        && animal.getGender().equals("Female"))
+                .map(animal -> animal.getBread().toUpperCase())
+                .collect(Collectors.toList());
+        System.out.println("Породы животных из Японии (самки прописными буквами):");
+        breadsAnimals.forEach(System.out::println);
+        return breadsAnimals;
     }
 
     public static void task3() {
