@@ -140,9 +140,14 @@ public class Main {
         return minLengthBread;
     }
 
-    public static void task10() {
+    public static int task10() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        int sumAge = animals.stream()
+                .reduce(0,
+                        (partialAgeResult, animal) -> partialAgeResult + animal.getAge(),
+                        Integer::sum);
+        System.out.println("Суммарный возраст всех животных: " + sumAge);
+        return sumAge;
     }
 
     public static void task11() {

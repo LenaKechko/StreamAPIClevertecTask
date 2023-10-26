@@ -121,6 +121,13 @@ class MainTest {
 
     @Test
     void task10() {
+        List<Animal> animals = Util.getAnimals();
+        long expectedResult = 0;
+        for (Animal animal : animals) {
+            expectedResult += animal.getAge();
+        }
+        assertEquals(expectedResult, Main.task10());
+    }
 
     }
 
