@@ -74,6 +74,7 @@ class MainTest {
         }
         assertEquals(expectedList, Main.task5());
     }
+
     @Test
     void task6() {
         List<Animal> animals = Util.getAnimals();
@@ -100,67 +101,74 @@ class MainTest {
     void task8() {
 
     }
+
     @Test
     void task9() {
 
     }
+
     @Test
     void task10() {
 
     }
+
     @Test
     void task11() {
 
     }
+
     @Test
     void task12() {
 
     }
+
     @Test
     void task13() {
 
     }
+
     @Test
     void task14() {
 
     }
+
     @Test
     void task15() {
 
     }
+
     @Test
     void task16() {
 
     }
+
     @Test
     void task17() {
 
     }
+
     @Test
     void task18() {
 
     }
+
     @Test
     void task19() {
 
     }
+
     @Test
     void task20() {
 
     }
+
     @Test
     void task21() {
 
     }
+
     @Test
     void task22() {
-
-    void task7() {
-        List<Animal> animals = Util.getAnimals();
-        boolean expectedResult = animals.stream()
-                .filter(animal -> animal.getOrigin().equals("Oceania"))
-                .findFirst()
-                .isEmpty();
-        assertEquals(expectedResult, Main.task7());
     }
+
 }
