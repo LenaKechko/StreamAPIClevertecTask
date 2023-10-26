@@ -3,6 +3,7 @@ package by.clevertec;
 import by.clevertec.model.Animal;
 import by.clevertec.model.House;
 import by.clevertec.model.Person;
+import by.clevertec.model.Student;
 import by.clevertec.util.Util;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +29,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class MainTest {
 
     @Test
+<<<<<<
+
+    <HEAD
     void task1() {
         List<Animal> animals = Util.getAnimals();
         int countAnimalsInZoo = 7;
@@ -289,6 +293,14 @@ class MainTest {
 
     @Test
     void task16() {
+        List<Student> students = Util.getStudents();
+        List<Student> expectedResult = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getAge() < 18)
+                expectedResult.add(student);
+        }
+        expectedResult.sort(Comparator.comparing(Student::getSurname));
+        assertEquals(expectedResult, Main.task16());
     }
 
     @Test
@@ -314,4 +326,5 @@ class MainTest {
     @Test
     void task22() {
     }
+
 }

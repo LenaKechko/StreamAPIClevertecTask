@@ -274,9 +274,15 @@ public class Main {
         return totalPriceForServiceFlower;
     }
 
-    public static void task16() {
+    public static List<Student> task16() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<Student> youngerStudents = students.stream()
+                .filter(student -> student.getAge() < 18)
+                .sorted(Comparator.comparing(Student::getSurname))
+                .collect(Collectors.toList());
+        System.out.println("Список студентов младше 18 лет:");
+        youngerStudents.forEach(System.out::println);
+        return youngerStudents;
     }
 
     public static void task17() {
