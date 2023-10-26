@@ -7,20 +7,17 @@ import by.clevertec.model.Flower;
 import by.clevertec.model.House;
 import by.clevertec.model.Person;
 import by.clevertec.model.Student;
+import by.clevertec.util.MyPredicate;
 import by.clevertec.util.Util;
+import by.clevertec.util.UtilForTask14;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Comparator;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static by.clevertec.util.Util.getPersons;
 
 public class Main {
 
@@ -230,9 +227,22 @@ public class Main {
         return finallyResultList;
     }
 
-    public static void task14() {
+    public static double task14() {
         List<Car> cars = Util.getCars();
-//        cars.stream() Продолжить ...
+        Map<String, List<Car>> echelonList = UtilForTask14.createEchelonList(cars);
+
+        Double total = echelonList.entrySet().stream()
+                .map(el -> {
+                    long totalMass = UtilForTask14.getSumMass(el.getValue());
+                    double transactionCost = totalMass / 1000.0 * 7.14;
+                    double totalProfit = (double) UtilForTask14.getSumPrice(el.getValue()) - transactionCost;
+                    UtilForTask14.outputResult(el.getKey(), totalMass, transactionCost, totalProfit);
+                    return Map.entry(el.getKey(), totalProfit);
+                })
+                .map(Map.Entry::getValue)
+                .reduce(0.0, Double::sum);
+        System.out.printf("\nСуммарная выручка логистической компании: %.2f ($)", total);
+        return total;
     }
 
     public static void task15() {
