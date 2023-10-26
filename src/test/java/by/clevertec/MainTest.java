@@ -418,4 +418,20 @@ class MainTest {
         }
         assertEquals(expectedResult, Main.task21());
     }
+
+    @Test
+    void task22() {
+        List<Student> students = Util.getStudents();
+        Map<String, Integer> expectedResult = new HashMap<>();
+        for (Student student : students) {
+            int minAge = Integer.MAX_VALUE;
+            String faculty = student.getFaculty();
+            if (expectedResult.containsKey(faculty))
+                minAge = expectedResult.get(faculty);
+            if (minAge > student.getAge())
+                minAge = student.getAge();
+            expectedResult.put(faculty, minAge);
+        }
+        assertEquals(expectedResult, Main.task22());
+    }
 }

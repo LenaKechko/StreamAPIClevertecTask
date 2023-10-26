@@ -380,8 +380,20 @@ public class Main {
 
     }
 
-    public static void task22() {
+    public static Map<String, Integer> task22() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        Map<String, Integer> minAgeForEachFaculty =
+                students.stream()
+                        .collect(Collectors.groupingBy(Student::getFaculty,
+                                Collectors.minBy(comparingInt(Student::getAge))))
+                        .entrySet().stream()
+                        .map(el -> Map.entry(el.getKey(),
+                                el.getValue().orElseThrow().getAge()))
+                        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        System.out.println("Факультет       |  Минимальный возраст");
+        for (Map.Entry<String, Integer> item : minAgeForEachFaculty.entrySet()) {
+            System.out.printf("%-16s|   %-10d\n", item.getKey(), item.getValue());
+        }
+        return minAgeForEachFaculty;
     }
 }
