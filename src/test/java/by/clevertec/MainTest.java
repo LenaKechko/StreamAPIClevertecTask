@@ -12,39 +12,18 @@ import java.time.Period;
 import java.util.Comparator;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
 
 import by.clevertec.model.Car;
-import by.clevertec.util.Util;
 import by.clevertec.util.UtilForTask14;
-import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import by.clevertec.model.Flower;
-import by.clevertec.util.Util;
-import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MainTest {
 
@@ -310,32 +289,26 @@ class MainTest {
 
     @Test
     void task16() {
-
     }
 
     @Test
     void task17() {
-
     }
 
     @Test
     void task18() {
-
     }
 
     @Test
     void task19() {
-
     }
 
     @Test
     void task20() {
-
     }
 
     @Test
     void task21() {
-
     }
 
     @Test
