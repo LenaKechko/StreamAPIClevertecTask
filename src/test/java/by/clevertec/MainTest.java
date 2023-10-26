@@ -131,7 +131,17 @@ class MainTest {
 
     @Test
     void task11() {
-
+        List<Animal> animals = Util.getAnimals();
+        int countAnimals = 0;
+        int sumAgeAnimals = 0;
+        for (Animal animal : animals) {
+            if (animal.getOrigin().equals("Indonesian")) {
+                sumAgeAnimals += animal.getAge();
+                countAnimals++;
+            }
+        }
+        double exceptedResult = (double) sumAgeAnimals / countAnimals;
+        assertEquals(exceptedResult, Main.task11());
     }
 
     @Test
@@ -187,5 +197,6 @@ class MainTest {
     @Test
     void task22() {
     }
+
 
 }

@@ -150,9 +150,15 @@ public class Main {
         return sumAge;
     }
 
-    public static void task11() {
+    public static double task11() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        double avgAge = animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Indonesian"))
+                .mapToInt(Animal::getAge)
+                .average()
+                .orElseThrow();
+        System.out.println("Средний возраст животных из Indonesian: "+ avgAge);
+        return avgAge;
     }
 
     public static void task12() {
