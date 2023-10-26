@@ -23,6 +23,10 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -339,9 +343,28 @@ public class Main {
 
     }
 
-    public static void task20() {
+    public static Map<String, Double> task20() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<Examination> examinations = Util.getExaminations();
+        Map<String, Double> agrMaxMarkForFirstExam = students.stream()
+                .collect(Collectors.toMap(Function.identity(),
+                        student -> examinations.stream()
+                                .filter(examination ->
+                                        examination.getStudentId() == student.getId())
+                                .map(Examination::getExam1)
+                                .findFirst().orElse(0)
+                ))
+                .entrySet().stream()
+                .filter(el -> el.getValue() != 0)
+                .collect(Collectors.groupingBy(el -> el.getKey().getFaculty(),
+                        Collectors.averagingDouble(Map.Entry::getValue)))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .stream().collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        System.out.println("Факультет с максимальной средней оценкой по первому экзамену:");
+        for (Map.Entry<String, Double> el : agrMaxMarkForFirstExam.entrySet())
+            System.out.println(el.getKey() + " - " + el.getValue());
+        return agrMaxMarkForFirstExam;
     }
 
     public static void task21() {
