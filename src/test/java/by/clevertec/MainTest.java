@@ -99,7 +99,12 @@ class MainTest {
 
     @Test
     void task8() {
-
+        List<Animal> animals = Util.getAnimals();
+        animals.sort(Comparator.comparing(Animal::getBread));
+        animals = animals.subList(0, 100);
+        animals.sort(Comparator.comparing(Animal::getAge));
+        int expectedResult = animals.get(99).getAge();
+        assertEquals(expectedResult, Main.task8());
     }
 
     @Test

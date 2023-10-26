@@ -115,9 +115,17 @@ public class Main {
         return checkOrigin;
     }
 
-    public static void task8() {
+    public static int task8() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        int maxAge = animals.stream()
+                .sorted(Comparator.comparing(Animal::getBread))
+                .limit(100)
+                .map(Animal::getAge)
+                .max(Integer::compareTo)
+                .orElseThrow();
+        System.out.println("Возраст самого старого животного после " +
+                "сортировки породы и отбора первых 100: " + maxAge);
+        return maxAge;
     }
 
     public static void task9() {
