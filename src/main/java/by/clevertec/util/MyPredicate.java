@@ -13,35 +13,36 @@ public class MyPredicate {
     }
 
     public static Predicate<Car> isSecondEchelon() {
-        return isFirstEchelon().negate().and(car -> car.getMass() < 1500 &&
+        return car -> car.getMass() < 1500 &&
                 (car.getCarMake().equals("BMW")
                         || car.getCarMake().equals("Lexus")
                         || car.getCarMake().equals("Chrysler")
-                        || car.getCarMake().equals("Toyota ")));
+                        || car.getCarMake().equals("Toyota "));
     }
 
     public static Predicate<Car> isThirdEchelon() {
-        return isSecondEchelon().negate().and(car -> (car.getColor().equals("Black") && car.getMass() > 4000)
-                || car.getCarMake().equals("GMC")
-                || car.getCarMake().equals("Dodge"));
+        return car ->
+                (car.getColor().equals("Black") && car.getMass() > 4000)
+                        || car.getCarMake().equals("GMC")
+                        || car.getCarMake().equals("Dodge");
     }
 
     public static Predicate<Car> isFourthEchelon() {
-        return isThirdEchelon().negate().and(car -> car.getReleaseYear() < 1982
+        return car -> car.getReleaseYear() < 1982
                 || car.getCarMake().equals("Civic")
-                || car.getCarMake().equals("Cherokee"));
+                || car.getCarMake().equals("Cherokee");
     }
 
     public static Predicate<Car> isFifthEchelon() {
-        return isFourthEchelon().negate().and(car -> !(car.getColor().equals("Yellow") ||
+        return car -> !(car.getColor().equals("Yellow") ||
                 car.getColor().equals("Red") ||
                 car.getColor().equals("Green") ||
                 car.getColor().equals("Blue")) ||
-                car.getPrice() > 40000);
+                car.getPrice() > 40000;
     }
 
     public static Predicate<Car> isSixthEchelon() {
-        return isFifthEchelon().negate().and(car -> car.getVin().contains("59"));
+        return car -> car.getVin().contains("59");
     }
 
     public static List<Car> filterCars(List<Car> cars, Predicate<Car> predicate) {

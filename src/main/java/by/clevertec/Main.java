@@ -9,6 +9,7 @@ import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.MyPredicate;
 import by.clevertec.util.Util;
+import by.clevertec.util.UtilForTask14;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,9 +17,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static javax.swing.UIManager.put;
 
 public class Main {
 
@@ -114,42 +114,20 @@ public class Main {
 
     public static double task14() {
         List<Car> cars = Util.getCars();
-        Map<String, List<Car>> result =
-                Map.of("Туркменистан", new ArrayList<>(),
-                        "Узбекистан", new ArrayList<>(),
-                        "Казахстан", new ArrayList<>(),
-                        "Кыргызстан", new ArrayList<>(),
-                        "Россия", new ArrayList<>(),
-                        "Монголия", new ArrayList<>());
-        Map<String, List<Car>> echelonesList = new HashMap<>();
-        System.out.println(cars.stream()
-                .map(car ->
-                        {
-                            echelonesList.put("Туркменистан", MyPredicate.filterCars(cars, MyPredicate.isFirstEchelon()));
-                            echelonesList.put("Узбекистан", MyPredicate.filterCars(cars, MyPredicate.isSecondEchelon()));
-                            echelonesList.put("Казахстан", MyPredicate.filterCars(cars, MyPredicate.isThirdEchelon()));
-                            echelonesList.put("Кыргызстан", MyPredicate.filterCars(cars, MyPredicate.isFourthEchelon()));
-                            echelonesList.put("Россия", MyPredicate.filterCars(cars, MyPredicate.isFifthEchelon()));
-                            echelonesList.put("Монголия", MyPredicate.filterCars(cars, MyPredicate.isSixthEchelon()));
-                            return echelonesList;
-                        }
-                )
-                .count());
-//                .map(el ->
-//                        {
-//                            double transactionCost = Main.getSumMass(el.getValue()) / 1000.0 * 7.14;
-//                            return Map.entry(el.getKey(), transactionCost);
-//                        }
-//                )
-//                .forEach(el -> transactionCostIncludingDirection.put(el.getKey(), el.getValue()));
-//MyPredicate.isSecondEchelon().and(MyPredicate.isFirstEchelon().negate())
-//        return totalSum;
-        return 0.0;
-    }
+        Map<String, List<Car>> echelonList = UtilForTask14.createEchelonList(cars);
 
-    public static long getSumMass(List<Car> carsList) {
-        return carsList.stream()
-                .reduce(0, (x, y) -> x + y.getMass(), Integer::sum);
+        Double total = echelonList.entrySet().stream()
+                .map(el -> {
+                    long totalMass = UtilForTask14.getSumMass(el.getValue());
+                    double transactionCost = totalMass / 1000.0 * 7.14;
+                    double totalProfit = (double) UtilForTask14.getSumPrice(el.getValue()) - transactionCost;
+                    UtilForTask14.outputResult(el.getKey(), totalMass, transactionCost, totalProfit);
+                    return Map.entry(el.getKey(), totalProfit);
+                })
+                .map(Map.Entry::getValue)
+                .reduce(0.0, Double::sum);
+        System.out.printf("\nСуммарная выручка логистической компании: %.2f ($)", total);
+        return total;
     }
 
     public static void task15() {
