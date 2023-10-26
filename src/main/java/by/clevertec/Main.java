@@ -66,9 +66,17 @@ public class Main {
         return breadsAnimals;
     }
 
-    public static void task3() {
+    public static List<String> task3() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        List<String> originAnimals = animals.stream()
+                .filter(animal -> animal.getAge() > 30)
+                .map(Animal::getOrigin)
+                .distinct()
+                .filter(origin -> origin.startsWith("A"))
+                .collect(Collectors.toList());
+        System.out.println("Страны на букву А, в которых проживают животные старше 30 лет");
+        originAnimals.forEach(System.out::println);
+        return originAnimals;
     }
 
     public static void task4() {

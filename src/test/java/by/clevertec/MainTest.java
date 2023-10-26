@@ -37,4 +37,11 @@ class MainTest {
         }
         assertEquals(expectedList, Main.task2());
     }
+
+    @Test
+    void task3() {
+        List<String> expectedList = List.of("Azeri", "Aymara", "Afrikaans",
+                "Arabic", "Armenian", "Amharic", "Assamese", "Albanian");
+        assertEquals(expectedList, Main.task3());
+    }
 }
