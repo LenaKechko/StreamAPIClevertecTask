@@ -367,9 +367,17 @@ public class Main {
         return agrMaxMarkForFirstExam;
     }
 
-    public static void task21() {
+    public static Map<String, Long> task21() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        Map<String, Long> countStudentsInEachGroup = students.stream()
+                .collect(Collectors.groupingBy(Student::getGroup,
+                        Collectors.counting()));
+        System.out.println("Группа  |  Количество студентов");
+        for (Map.Entry<String, Long> item : countStudentsInEachGroup.entrySet()) {
+            System.out.printf("%-8s|%-22d\n", item.getKey(), item.getValue());
+        }
+        return countStudentsInEachGroup;
+
     }
 
     public static void task22() {

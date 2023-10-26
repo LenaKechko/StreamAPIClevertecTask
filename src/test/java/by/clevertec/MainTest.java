@@ -403,4 +403,19 @@ class MainTest {
 
         assertEquals(finalExpectedResult, Main.task20());
     }
+
+    @Test
+    void task21() {
+        List<Student> students = Util.getStudents();
+        Map<String, Long> expectedResult = new HashMap<>();
+        for (Student student : students) {
+            String group = student.getGroup();
+            long countStudent = 0;
+            if (expectedResult.containsKey(group)) {
+                countStudent = expectedResult.get(group);
+            }
+            expectedResult.put(group, ++countStudent);
+        }
+        assertEquals(expectedResult, Main.task21());
+    }
 }
