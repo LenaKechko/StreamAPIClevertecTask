@@ -11,6 +11,7 @@ import by.clevertec.util.MyPredicate;
 import by.clevertec.util.Util;
 import by.clevertec.util.UtilForTask14;
 
+import java.util.LinkedHashMap;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -19,6 +20,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -313,9 +319,28 @@ public class Main {
         return facultyListWithAvgAgeStudents;
     }
 
-    public static void task19() {
+    public static List<Student> task19() {
         List<Student> students = Util.getStudents();
-//        students.stream() Продолжить ...
+        List<Examination> examinations = Util.getExaminations();
+        List<Student> studentsPassingThirdExam = students.stream()
+                .filter(student -> student.getGroup().equals("C-3"))
+                .map(student -> {
+                            if (examinations.stream()
+                                    .filter(examination ->
+                                            examination.getStudentId() == student.getId())
+                                    .findFirst()
+                                    .filter(examination -> examination.getExam3() > 4)
+                                    .isEmpty())
+                                return null;
+                            return student;
+                        }
+                )
+                .filter(Objects::nonNull)
+                .toList();
+        System.out.println("Вывод студентов группы C-3, у которых 3 экзамен >4");
+        studentsPassingThirdExam.forEach(System.out::println);
+        return studentsPassingThirdExam;
+
     }
 
     public static void task20() {
