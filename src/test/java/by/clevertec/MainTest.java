@@ -109,8 +109,15 @@ class MainTest {
 
     @Test
     void task9() {
-
+        List<Animal> animals = Util.getAnimals();
+        int expectedResult = animals.stream()
+                .map(Animal::getBread)
+                .map(String::length)
+                .min(Integer::compareTo)
+                .orElseThrow();
+        assertEquals(expectedResult, Main.task9());
     }
+
 
     @Test
     void task10() {

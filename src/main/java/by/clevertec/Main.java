@@ -128,9 +128,16 @@ public class Main {
         return maxAge;
     }
 
-    public static void task9() {
+    public static int task9() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        int minLengthBread = animals.stream()
+                .map(Animal::getBread)
+                .map(String::toCharArray)
+                .map(bread -> bread.length)
+                .min(Integer::compareTo)
+                .orElseThrow();
+        System.out.println("Длина самой короткой породы: " + minLengthBread);
+        return minLengthBread;
     }
 
     public static void task10() {
