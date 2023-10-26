@@ -6,6 +6,7 @@ import by.clevertec.model.Flower;
 import by.clevertec.model.House;
 import by.clevertec.model.Person;
 import by.clevertec.model.Student;
+import by.clevertec.model.Examination;
 import by.clevertec.util.Util;
 import by.clevertec.util.UtilForTask14;
 import org.junit.jupiter.api.Test;
@@ -23,16 +24,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import by.clevertec.model.Examination;
-import by.clevertec.model.Student;
-import by.clevertec.util.Util;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
@@ -327,7 +318,6 @@ class MainTest {
         Map<String, List<Integer>> temp = new HashMap<>();
         for (Student student : students) {
             String faculty = student.getFaculty();
-<<<<<<<HEAD
             List<Integer> tempData = List.of(0, 0);
             if (temp.containsKey(faculty)) {
                 tempData = temp.get(faculty);
@@ -390,13 +380,12 @@ class MainTest {
             }
             temp.put(faculty, aboutMarks);
         }
-        Map<String, Double> finalExpectedResult = new HashMap<>();
 
         temp.forEach((faculty, value) -> {
             double averageMark = (double) value.get(0) / value.get(1);
             expectedResult.put(faculty, averageMark);
         });
-        finalExpectedResult = expectedResult.entrySet().stream()
+        Map<String, Double> finalExpectedResult = expectedResult.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));

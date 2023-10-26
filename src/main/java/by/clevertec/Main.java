@@ -7,7 +7,6 @@ import by.clevertec.model.Flower;
 import by.clevertec.model.House;
 import by.clevertec.model.Person;
 import by.clevertec.model.Student;
-import by.clevertec.util.MyPredicate;
 import by.clevertec.util.Util;
 import by.clevertec.util.UtilForTask14;
 
@@ -15,7 +14,6 @@ import java.util.LinkedHashMap;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Comparator;
 import java.util.Collection;
 import java.util.List;
@@ -23,10 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -302,17 +297,17 @@ public class Main {
 
     public static Map<String, Double> task18() {
         List<Student> students = Util.getStudents();
-        Map<String, Double> facultyListWithAvgAgeStudents = new HashMap<>();
-        facultyListWithAvgAgeStudents = students.stream()
-                .collect(Collectors.groupingBy(Student::getFaculty,
-                        Collectors.averagingDouble(Student::getAge)))
-                .entrySet().stream()
-                .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-                .collect(Collectors
-                        .toMap(Map.Entry::getKey,
-                                Map.Entry::getValue,
-                                (e1, e2) -> e1,
-                                LinkedHashMap::new));
+        Map<String, Double> facultyListWithAvgAgeStudents =
+                students.stream()
+                        .collect(Collectors.groupingBy(Student::getFaculty,
+                                Collectors.averagingDouble(Student::getAge)))
+                        .entrySet().stream()
+                        .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
+                        .collect(Collectors
+                                .toMap(Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new));
         System.out.println("Средний возраст студентов на каждом факультете:");
         facultyListWithAvgAgeStudents
                 .forEach((key, value) -> System.out.println(key + " - " + value));
@@ -385,7 +380,7 @@ public class Main {
         Map<String, Integer> minAgeForEachFaculty =
                 students.stream()
                         .collect(Collectors.groupingBy(Student::getFaculty,
-                                Collectors.minBy(comparingInt(Student::getAge))))
+                                Collectors.minBy(Comparator.comparingInt(Student::getAge))))
                         .entrySet().stream()
                         .map(el -> Map.entry(el.getKey(),
                                 el.getValue().orElseThrow().getAge()))
