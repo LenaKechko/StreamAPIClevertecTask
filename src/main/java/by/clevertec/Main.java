@@ -245,7 +245,7 @@ public class Main {
                 })
                 .map(Map.Entry::getValue)
                 .reduce(0.0, Double::sum);
-        System.out.printf("\nСуммарная выручка логистической компании: %.2f ($)", total);
+        System.out.printf("\nСуммарная выручка логистической компании: %.2f ($)\n", total);
         return total;
     }
 
@@ -269,7 +269,7 @@ public class Main {
                 .map(flower -> flower.getPrice() +
                         flower.getWaterConsumptionPerDay() * 1.39 / 1000 * countDaysOfFiveYears)
                 .reduce(0.0, Double::sum);
-        System.out.printf("Общая стоимость обслуживания растений (за 5 лет) = %.2f $", totalPriceForServiceFlower);
+        System.out.printf("Общая стоимость обслуживания растений (за 5 лет) = %.2f $\n", totalPriceForServiceFlower);
         return totalPriceForServiceFlower;
     }
 

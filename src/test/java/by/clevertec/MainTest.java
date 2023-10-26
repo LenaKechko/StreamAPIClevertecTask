@@ -283,7 +283,7 @@ class MainTest {
             }
         }
         Main.task15();
-        String textExpected = String.format("Общая стоимость обслуживания растений (за 5 лет) = %.2f $", expectedResult);
+        String textExpected = String.format("Общая стоимость обслуживания растений (за 5 лет) = %.2f $\n", expectedResult);
         assertEquals(textExpected, output.toString());
     }
 
