@@ -88,8 +88,14 @@ class MainTest {
 
     @Test
     void task7() {
-
+        List<Animal> animals = Util.getAnimals();
+        boolean expectedResult = animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Oceania"))
+                .findFirst()
+                .isEmpty();
+        assertEquals(expectedResult, Main.task7());
     }
+
     @Test
     void task8() {
 
@@ -149,5 +155,12 @@ class MainTest {
     @Test
     void task22() {
 
+    void task7() {
+        List<Animal> animals = Util.getAnimals();
+        boolean expectedResult = animals.stream()
+                .filter(animal -> animal.getOrigin().equals("Oceania"))
+                .findFirst()
+                .isEmpty();
+        assertEquals(expectedResult, Main.task7());
     }
 }

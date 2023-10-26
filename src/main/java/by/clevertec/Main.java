@@ -107,9 +107,12 @@ public class Main {
         return checkOtherGenderAnimal;
     }
 
-    public static void task7() {
+    public static boolean task7() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        boolean checkOrigin = animals.stream()
+                .noneMatch(animal -> animal.getOrigin().equals("Oceania"));
+        System.out.println(checkOrigin ? "Нет животных из страны Oceania" : "Есть животные из страны Oceania");
+        return checkOrigin;
     }
 
     public static void task8() {
