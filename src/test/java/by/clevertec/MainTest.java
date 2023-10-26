@@ -1,12 +1,17 @@
 package by.clevertec;
 
 import by.clevertec.model.Animal;
+import by.clevertec.model.Car;
+import by.clevertec.model.Flower;
 import by.clevertec.model.House;
 import by.clevertec.model.Person;
 import by.clevertec.model.Student;
 import by.clevertec.util.Util;
+import by.clevertec.util.UtilForTask14;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.Period;
@@ -336,22 +341,5 @@ class MainTest {
 
         assertEquals(expectedResult, Main.task18());
     }
-
-    @Test
-    void task19() {
-    }
-
-    @Test
-    void task20() {
-    }
-
-    @Test
-    void task21() {
-    }
-
-    @Test
-    void task22() {
-    }
-
 
 }
