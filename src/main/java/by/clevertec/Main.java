@@ -87,9 +87,15 @@ public class Main {
         System.out.println("Количество Female-животных: " + countFemaleAnimals);
     }
 
-    public static void task5() {
+    public static List<Animal> task5() {
         List<Animal> animals = Util.getAnimals();
-//        animals.stream() Продолжить ...
+        List<Animal> animalsFromHungarianAndAge = animals.stream()
+                .filter(animal -> animal.getAge() >= 20 && animal.getAge() <= 30)
+                .filter(animal -> animal.getOrigin().equals("Hungarian"))
+                .toList();
+        System.out.println("Животные из Венгрии в возрасте 20-30 лет:");
+        animalsFromHungarianAndAge.forEach(System.out::println);
+        return animalsFromHungarianAndAge;
     }
 
     public static void task6() {

@@ -13,7 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
@@ -62,5 +61,86 @@ class MainTest {
         Main.task4();
         String exceptedResultConsole = String.format("Количество Female-животных: " + exceptedResult);
         assertEquals(exceptedResultConsole, outputStream.toString().trim());
+    }
+
+    @Test
+    void task5() {
+        List<Animal> animals = Util.getAnimals();
+        List<Animal> expectedList = new ArrayList<>();
+        for (Animal animal : animals) {
+            if (animal.getAge() >= 20 && animal.getAge() <= 30
+                    && animal.getOrigin().equals("Hungarian"))
+                expectedList.add(animal);
+        }
+        assertEquals(expectedList, Main.task5());
+    }
+    @Test
+    void task6() {
+
+    }
+
+    @Test
+    void task7() {
+
+    }
+    @Test
+    void task8() {
+
+    }
+    @Test
+    void task9() {
+
+    }
+    @Test
+    void task10() {
+
+    }
+    @Test
+    void task11() {
+
+    }
+    @Test
+    void task12() {
+
+    }
+    @Test
+    void task13() {
+
+    }
+    @Test
+    void task14() {
+
+    }
+    @Test
+    void task15() {
+
+    }
+    @Test
+    void task16() {
+
+    }
+    @Test
+    void task17() {
+
+    }
+    @Test
+    void task18() {
+
+    }
+    @Test
+    void task19() {
+
+    }
+    @Test
+    void task20() {
+
+    }
+    @Test
+    void task21() {
+
+    }
+    @Test
+    void task22() {
+
     }
 }
